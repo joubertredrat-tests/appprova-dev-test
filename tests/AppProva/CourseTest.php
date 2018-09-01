@@ -5,6 +5,7 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Exception\Course\NotFoundException;
 use AppProva\Domain\Service\CourseService;
 use Tests\AppBundleTestCase;
 
@@ -52,6 +53,27 @@ class CourseTest extends AppBundleTestCase
     }
 
     /**
+     * test ExceptionOnUpdateCourseNotFoundOnDatabase
+     *
+     * @return void
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function testExceptionOnUpdateCourseNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+
+        $service
+            ->courseUpdate(
+                99999999999,
+                "Ciência da Computação"
+            )
+        ;
+    }
+
+    /**
      * test CourseDelete
      *
      * @return void
@@ -67,6 +89,21 @@ class CourseTest extends AppBundleTestCase
         $assert = $service->courseDelete($course->getId());
 
         self::assertTrue($assert);
+    }
+
+    /**
+     * test ExceptionOnDeleteCourseNotFoundOnDatabase
+     *
+     * @return void
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function testExceptionOnDeleteCourseNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+        $service->courseDelete(99999999999);
     }
 
     /**

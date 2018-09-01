@@ -90,7 +90,7 @@ class ScoreTest extends AppBundleTestCase
      * test ExceptionOnDeleteNotFoundOnDatabase
      *
      * @return void
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function testExceptionOnDeleteNotFoundOnDatabase(): void
     {

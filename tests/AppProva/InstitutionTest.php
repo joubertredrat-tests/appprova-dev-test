@@ -5,7 +5,6 @@
 
 namespace Tests\AppProva;
 
-use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Service\InstitutionService;
 use Tests\AppBundleTestCase;
@@ -37,7 +36,6 @@ class InstitutionTest extends AppBundleTestCase
     /**
      * test InstitutionUpdate
      *
-     * @throws InvalidGeneralScoreException
      * @throws \Throwable
      */
     public function testInstitutionUpdate(): void
@@ -81,13 +79,11 @@ class InstitutionTest extends AppBundleTestCase
      * test InstitutionDelete
      *
      * @return void
-     * @throws InvalidGeneralScoreException
      * @throws \Throwable
      */
     public function testInstitutionDelete(): void
     {
         $name = "Faculdade A";
-        $generalScore = 100;
 
         $service = $this->getService();
         $institution = $service->institutionAdd($name);
@@ -114,7 +110,6 @@ class InstitutionTest extends AppBundleTestCase
      * test InstitutionGet
      *
      * @return void
-     * @throws InvalidGeneralScoreException
      * @throws \Throwable
      */
     public function testInstitutionGet(): void
