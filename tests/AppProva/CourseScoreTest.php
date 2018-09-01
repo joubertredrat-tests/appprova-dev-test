@@ -49,6 +49,17 @@ class CourseScoreTest extends AppBundleTestCase
     }
 
     /**
+     * test DeleteInstitutionCourseScore
+     *
+     * @return void
+     */
+    public function testDeleteInstitutionCourseScore(): void
+    {
+        $assert = false;;
+        self::assertTrue($assert);
+    }
+
+    /**
      * @return Institution
      * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
      * @throws \Throwable
