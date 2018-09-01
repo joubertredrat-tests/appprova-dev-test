@@ -53,6 +53,17 @@ class InstitutionTest extends AppBundleTestCase
         $service->institutionAdd($name, $generalScore);
     }
 
+    public function testInstitutionUpdate(): void
+    {
+        $nameOld = "Faculdade A";
+        $generalScoreOld = 100;
+        $nameNew = "Faculdade B";
+        $generalScoreNew = 10;
+
+        self::assertEquals($nameNew, null);
+        self::assertEquals($generalScoreNew, null);
+    }
+
     /**
      * @return InstitutionService
      * @throws \Exception
