@@ -84,6 +84,16 @@ class InstitutionTest extends AppBundleTestCase
     }
 
     /**
+     * test InstitutionDelete
+     *
+     * @return void
+     */
+    public function testInstitutionDelete(): void
+    {
+        self::assertTrue(false);
+    }
+
+    /**
      * @return InstitutionService
      * @throws \Exception
      */
