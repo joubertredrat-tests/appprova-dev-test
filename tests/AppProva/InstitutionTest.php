@@ -53,6 +53,12 @@ class InstitutionTest extends AppBundleTestCase
         $service->institutionAdd($name, $generalScore);
     }
 
+    /**
+     * test InstitutionUpdate
+     *
+     * @throws InvalidGeneralScoreException
+     * @throws \Throwable
+     */
     public function testInstitutionUpdate(): void
     {
         $nameOld = "Faculdade A";
@@ -60,8 +66,21 @@ class InstitutionTest extends AppBundleTestCase
         $nameNew = "Faculdade B";
         $generalScoreNew = 10;
 
-        self::assertEquals($nameNew, null);
-        self::assertEquals($generalScoreNew, null);
+        $service = $this->getService();
+        $institutionCreated = $service->institutionAdd($nameOld, $generalScoreOld);
+
+        $institutionUpdated = $service
+            ->institutionUpdate(
+                $institutionCreated->getId(),
+                $nameNew,
+                $generalScoreNew
+            )
+        ;
+
+        self::assertEquals($nameNew, $institutionUpdated->getName());
+        self::assertEquals($generalScoreNew, $institutionUpdated->getGeneralScore());
+        self::assertNotEquals($nameOld, $institutionUpdated->getName());
+        self::assertNotEquals($generalScoreOld, $institutionUpdated->getGeneralScore());
     }
 
     /**

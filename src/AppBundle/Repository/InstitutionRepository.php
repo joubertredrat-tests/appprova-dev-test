@@ -19,6 +19,18 @@ use Doctrine\ORM\EntityRepository;
 class InstitutionRepository extends EntityRepository implements InstitutionRepositoryInterface
 {
     /**
+     * @param int $id
+     * @return Institution|null
+     */
+    public function get(int $id): ?Institution
+    {
+        /** @var Institution $institution */
+        $institution = $this->find($id);
+
+        return $institution;
+    }
+
+    /**
      * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
      */
@@ -27,5 +39,16 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
         $entityManager = $this->getEntityManager();
         $entityManager->persist($institution);
         $entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function update(Institution $institution): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($institution);
+        $entityManager->flush($institution);
     }
 }

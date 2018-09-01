@@ -17,8 +17,20 @@ use AppProva\Domain\Entity\Institution;
 interface InstitutionRepositoryInterface
 {
     /**
+     * @param int $id
+     * @return Institution|null
+     */
+    public function get(int $id): ?Institution;
+
+    /**
      * @param Institution $institution
      * @return void
      */
     public function add(Institution $institution): void;
+
+    /**
+     * @param Institution $institution
+     * @return void
+     */
+    public function update(Institution $institution): void;
 }
