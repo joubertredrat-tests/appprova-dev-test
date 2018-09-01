@@ -145,6 +145,50 @@ class InstitutionService
 
     /**
      * @param int $id
+     * @return bool
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function institutionDelete(int $id): bool
+    {
+        try {
+            $institution = $this->institutionGet($id);
+
+            $this
+                ->institutionRepository
+                ->delete($institution)
+            ;
+
+            return true;
+        } catch (NotFoundException $e) {
+            $message = sprintf(
+                "Fail on delete institution, invalid general score: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on delete institution, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
      * @return Institution
      * @throws NotFoundException
      * @throws \Throwable

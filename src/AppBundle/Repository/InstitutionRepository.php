@@ -51,4 +51,15 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
         $entityManager->persist($institution);
         $entityManager->flush($institution);
     }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function delete(Institution $institution): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($institution);
+        $entityManager->flush($institution);
+    }
 }

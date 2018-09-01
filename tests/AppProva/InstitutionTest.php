@@ -110,10 +110,33 @@ class InstitutionTest extends AppBundleTestCase
      * test InstitutionDelete
      *
      * @return void
+     * @throws InvalidGeneralScoreException
+     * @throws \Throwable
      */
     public function testInstitutionDelete(): void
     {
-        self::assertTrue(false);
+        $name = "Faculdade A";
+        $generalScore = 100;
+
+        $service = $this->getService();
+        $institution = $service->institutionAdd($name, $generalScore);
+        $assert = $service->institutionDelete($institution->getId());
+
+        self::assertTrue($assert);
+    }
+
+    /**
+     * test ExceptionOnDeleteInstitutionNotFoundOnDatabase
+     *
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function testExceptionOnDeleteInstitutionNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+        $service->institutionDelete(99999999999);
     }
 
     /**

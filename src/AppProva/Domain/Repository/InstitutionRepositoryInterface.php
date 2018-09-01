@@ -33,4 +33,10 @@ interface InstitutionRepositoryInterface
      * @return void
      */
     public function update(Institution $institution): void;
+
+    /**
+     * @param Institution $institution
+     * @return void
+     */
+    public function delete(Institution $institution): void;
 }
