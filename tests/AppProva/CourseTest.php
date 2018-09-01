@@ -52,6 +52,16 @@ class CourseTest extends AppBundleTestCase
     }
 
     /**
+     * test CourseDelete
+     *
+     * @return void
+     */
+    public function testCourseDelete(): void
+    {
+        self::assertTrue(false);
+    }
+
+    /**
      * @return CourseService
      * @throws \Exception
      */
