@@ -95,15 +95,16 @@ class ScoreService
     /**
      * @param int $id
      * @return bool
+     * @throws \Throwable
      */
     public function scoreDelete(int $id): bool
     {
         try {
-            $institutionCourseScore = $this->scoreGet($id);
+            $score = $this->scoreGet($id);
 
             $this
                 ->scoreRepository
-                ->delete($institutionCourseScore)
+                ->delete($score)
             ;
 
             return true;
@@ -117,26 +118,30 @@ class ScoreService
                 ->logger
                 ->error($message)
             ;
+
+            throw $e;
         }
     }
 
     /**
      * @param int $id
      * @return Score
+     * @throws NotFoundException
+     * @throws \Throwable
      */
     public function scoreGet(int $id): Score
     {
         try {
-            $institutionCourseScore = $this
+            $score = $this
                 ->scoreRepository
                 ->get($id)
             ;
 
-            if (!$institutionCourseScore instanceof Score) {
+            if (!$score instanceof Score) {
                 throw NotFoundException::onDatabase($id);
             }
 
-            return $institutionCourseScore;
+            return $score;
         } catch (NotFoundException $e) {
             $message = sprintf(
                 "Fail on get course score for institution: %s",
@@ -147,6 +152,8 @@ class ScoreService
                 ->logger
                 ->error($message)
             ;
+
+            throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
                 "Fail on get course score for institution, unknown error: %s",
@@ -157,6 +164,8 @@ class ScoreService
                 ->logger
                 ->error($message)
             ;
+
+            throw $e;
         }
     }
 }

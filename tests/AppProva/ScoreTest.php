@@ -7,6 +7,7 @@ namespace Tests\AppProva;
 
 use AppProva\Domain\Entity\Course;
 use AppProva\Domain\Entity\Institution;
+use AppProva\Domain\Exception\Score\NotFoundException;
 use AppProva\Domain\Service\CourseService;
 use AppProva\Domain\Service\InstitutionService;
 use AppProva\Domain\Service\ScoreService;
@@ -65,9 +66,38 @@ class ScoreTest extends AppBundleTestCase
      */
     public function testDeleteScore(): void
     {
-        $assert = false;
+        $institution = $this->getInstitution();
+        $course = $this->getCourse();
+        $institutionScore = 100;
+        $courseGeneralScore = 100;
+        $courseStudentAvgScore = 100;
+
+        $service = $this->getService();
+        $score = $service->scoreAdd(
+            $institution,
+            $course,
+            $institutionScore,
+            $courseGeneralScore,
+            $courseStudentAvgScore
+        );
+
+        $assert = $service->scoreDelete($score->getId());
 
         self::assertTrue($assert);
+    }
+
+    /**
+     * test ExceptionOnDeleteNotFoundOnDatabase
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testExceptionOnDeleteNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+        $service->scoreDelete(99999999999);
     }
 
     /**
