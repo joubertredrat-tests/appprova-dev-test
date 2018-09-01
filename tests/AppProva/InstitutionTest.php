@@ -140,6 +140,41 @@ class InstitutionTest extends AppBundleTestCase
     }
 
     /**
+     * test InstitutionGet
+     *
+     * @return void
+     * @throws InvalidGeneralScoreException
+     * @throws \Throwable
+     */
+    public function testInstitutionGet(): void
+    {
+        $name = "Faculdade A";
+        $generalScore = 100;
+
+        $service = $this->getService();
+        $institution = $service->institutionAdd($name, $generalScore);
+        $institutionFound = $service->institutionGet($institution->getId());
+
+        self::assertEquals($name, $institutionFound->getName());
+        self::assertEquals($generalScore, $institutionFound->getGeneralScore());
+    }
+
+    /**
+     * test ExceptionOnGetInstitutionNotFoundOnDatabase
+     *
+     * @return void
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function testExceptionOnGetInstitutionNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+        $service->institutionGet(99999999999);
+    }
+
+    /**
      * @return InstitutionService
      * @throws \Exception
      */
