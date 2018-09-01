@@ -7,6 +7,7 @@ namespace AppProva\Domain\Service;
 
 use AppProva\Domain\Builder\CourseBuilder;
 use AppProva\Domain\Entity\Course;
+use AppProva\Domain\Exception\Course\NotFoundException;
 use AppProva\Domain\Repository\CourseRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
@@ -62,6 +63,97 @@ class CourseService
         } catch (\Throwable $e) {
             $message = sprintf(
                 "Fail on create course, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param string $name
+     * @return Course
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function courseUpdate(int $id, string $name): Course
+    {
+        try {
+            $course = $this->courseGet($id);
+            $course->setName($name);
+
+            $this
+                ->courseRepository
+                ->update($course)
+            ;
+
+            return $course;
+        } catch (NotFoundException $e) {
+            $message = sprintf(
+                "Fail on get course: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on get course, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return Course
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function courseGet(int $id): Course
+    {
+        try {
+            $course = $this
+                ->courseRepository
+                ->get($id);
+
+            if (!$course instanceof Course) {
+                throw NotFoundException::onDatabase($id);
+            }
+
+            return $course;
+        } catch (NotFoundException $e) {
+            $message = sprintf(
+                "Fail on get course: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on get course, unknown error: %s",
                 $e->getMessage()
             );
 

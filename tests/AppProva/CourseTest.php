@@ -35,14 +35,20 @@ class CourseTest extends AppBundleTestCase
      * test CourseUpdate
      *
      * @return void
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function testCourseUpdate(): void
     {
         $nameOld = "Sistemas de Informação";
         $nameNew = "Ciência da Computação";
 
-        self::assertEquals($nameNew, null);
-        self::assertNotEquals($nameOld, null);
+        $service = $this->getService();
+        $courseCreated = $service->courseAdd($nameOld);
+        $courseUpdated = $service->courseUpdate($courseCreated->getId(), $nameNew);
+
+        self::assertEquals($nameNew, $courseUpdated->getName());
+        self::assertNotEquals($nameOld, $courseUpdated->getName());
     }
 
     /**

@@ -20,6 +20,17 @@ class CourseRepository extends EntityRepository implements CourseRepositoryInter
 {
     /**
      * {@inheritdoc}
+     */
+    public function get(int $id): ?Course
+    {
+        /** @var Course $course */
+        $course = $this->find($id);
+
+        return $course;
+    }
+
+    /**
+     * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
      */
     public function add(Course $course): void
@@ -27,5 +38,16 @@ class CourseRepository extends EntityRepository implements CourseRepositoryInter
         $entityManager = $this->getEntityManager();
         $entityManager->persist($course);
         $entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function update(Course $course): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($course);
+        $entityManager->flush($course);
     }
 }

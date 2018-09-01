@@ -118,7 +118,7 @@ class InstitutionService
             return $institution;
         } catch (NotFoundException $e) {
             $message = sprintf(
-                "Fail on update institution, invalid general score: %s",
+                "Fail on update institution: %s",
                 $e->getMessage()
             );
 
@@ -162,7 +162,7 @@ class InstitutionService
             return true;
         } catch (NotFoundException $e) {
             $message = sprintf(
-                "Fail on delete institution, invalid general score: %s",
+                "Fail on delete institution: %s",
                 $e->getMessage()
             );
 
@@ -208,7 +208,7 @@ class InstitutionService
             return $institution;
         } catch (NotFoundException $e) {
             $message = sprintf(
-                "Fail on get institution, invalid general score: %s",
+                "Fail on get institution: %s",
                 $e->getMessage()
             );
 

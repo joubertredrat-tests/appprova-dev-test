@@ -17,8 +17,20 @@ use AppProva\Domain\Entity\Course;
 interface CourseRepositoryInterface
 {
     /**
+     * @param int $id
+     * @return Course|null
+     */
+    public function get(int $id): ?Course;
+
+    /**
      * @param Course $course
      * @return void
      */
     public function add(Course $course): void;
+
+    /**
+     * @param Course $course
+     * @return void
+     */
+    public function update(Course $course): void;
 }
