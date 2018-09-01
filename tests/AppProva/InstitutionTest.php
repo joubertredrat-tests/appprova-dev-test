@@ -27,31 +27,11 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionCreate(): void
     {
         $name = "Faculdade A";
-        $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name, $generalScore);
+        $institution = $service->institutionAdd($name);
 
         self::assertEquals($name, $institution->getName());
-        self::assertEquals($generalScore, $institution->getGeneralScore());
-    }
-
-    /**
-     * test ExceptionOnWrongGeneralScore
-     *
-     * @return void
-     * @throws InvalidGeneralScoreException
-     * @throws \Throwable
-     */
-    public function testExceptionOnWrongGeneralScore(): void
-    {
-        self::expectException(InvalidGeneralScoreException::class);
-
-        $name = "Faculdade A";
-        $generalScore = 101;
-
-        $service = $this->getService();
-        $service->institutionAdd($name, $generalScore);
     }
 
     /**
@@ -63,25 +43,17 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionUpdate(): void
     {
         $nameOld = "Faculdade A";
-        $generalScoreOld = 100;
         $nameNew = "Faculdade B";
-        $generalScoreNew = 10;
 
         $service = $this->getService();
-        $institutionCreated = $service->institutionAdd($nameOld, $generalScoreOld);
-
-        $institutionUpdated = $service
-            ->institutionUpdate(
-                $institutionCreated->getId(),
-                $nameNew,
-                $generalScoreNew
-            )
-        ;
+        $institutionCreated = $service->institutionAdd($nameOld);
+        $institutionUpdated = $service->institutionUpdate(
+            $institutionCreated->getId(),
+            $nameNew
+        );
 
         self::assertEquals($nameNew, $institutionUpdated->getName());
-        self::assertEquals($generalScoreNew, $institutionUpdated->getGeneralScore());
         self::assertNotEquals($nameOld, $institutionUpdated->getName());
-        self::assertNotEquals($generalScoreOld, $institutionUpdated->getGeneralScore());
     }
 
     /**
@@ -100,8 +72,7 @@ class InstitutionTest extends AppBundleTestCase
         $service
             ->institutionUpdate(
                 99999999999,
-                "Faculdade B",
-                10
+                "Faculdade B"
             )
         ;
     }
@@ -119,7 +90,7 @@ class InstitutionTest extends AppBundleTestCase
         $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name, $generalScore);
+        $institution = $service->institutionAdd($name);
         $assert = $service->institutionDelete($institution->getId());
 
         self::assertTrue($assert);
@@ -149,14 +120,12 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionGet(): void
     {
         $name = "Faculdade A";
-        $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name, $generalScore);
+        $institution = $service->institutionAdd($name);
         $institutionFound = $service->institutionGet($institution->getId());
 
         self::assertEquals($name, $institutionFound->getName());
-        self::assertEquals($generalScore, $institutionFound->getGeneralScore());
     }
 
     /**
