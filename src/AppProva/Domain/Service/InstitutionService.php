@@ -49,16 +49,14 @@ class InstitutionService
      * @param string $name
      * @param int $generalScore
      * @return Institution
-     * @throws InvalidGeneralScoreException
      * @throws \Throwable
      */
-    public function institutionAdd(string $name, int $generalScore): Institution
+    public function institutionAdd(string $name): Institution
     {
         try {
             $institutionBuilder = new InstitutionBuilder();
             $institution = $institutionBuilder
                 ->addName($name)
-                ->addGeneralScore($generalScore)
                 ->get()
             ;
 
@@ -68,18 +66,6 @@ class InstitutionService
             ;
 
             return $institution;
-        } catch (InvalidGeneralScoreException $e) {
-            $message = sprintf(
-                "Fail on create institution, invalid general score: %s",
-                $e->getMessage()
-            );
-
-            $this
-                ->logger
-                ->error($message)
-            ;
-
-            throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
                 "Fail on create institution, unknown error: %s",
@@ -98,17 +84,15 @@ class InstitutionService
     /**
      * @param int $id
      * @param string $name
-     * @param int $generalScore
      * @return Institution
      * @throws NotFoundException
      * @throws \Throwable
      */
-    public function institutionUpdate(int $id, string $name, int $generalScore): Institution
+    public function institutionUpdate(int $id, string $name): Institution
     {
         try {
             $institution = $this->institutionGet($id);
             $institution->setName($name);
-            $institution->setGeneralScore($generalScore);
 
             $this
                 ->institutionRepository

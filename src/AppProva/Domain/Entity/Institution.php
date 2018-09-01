@@ -7,7 +7,6 @@
 
 namespace AppProva\Domain\Entity;
 
-use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
 use Doctrine\Common\Collections\ArrayCollection;
 use RedRat\Entity\DateTimeTrait;
 
@@ -29,11 +28,6 @@ class Institution
      * @var string
      */
     private $name;
-
-    /**
-     * @var int
-     */
-    private $generalScore;
 
     /**
      * @var ArrayCollection
@@ -71,32 +65,6 @@ class Institution
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGeneralScore(): int
-    {
-        return $this->generalScore;
-    }
-
-    /**
-     * @param int $generalScore
-     * @return void
-     * @throws InvalidGeneralScoreException
-     */
-    public function setGeneralScore(int $generalScore): void
-    {
-        if ($generalScore < 0) {
-            throw InvalidGeneralScoreException::lessThanZero($generalScore);
-        }
-
-        if ($generalScore > 100) {
-            throw InvalidGeneralScoreException::moreThanOneHundred($generalScore);
-        }
-
-        $this->generalScore = $generalScore;
     }
 
     /**

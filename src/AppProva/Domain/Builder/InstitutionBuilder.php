@@ -6,7 +6,6 @@
 namespace AppProva\Domain\Builder;
 
 use AppProva\Domain\Entity\Institution;
-use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
 
 /**
  * Institution Builder
@@ -37,21 +36,6 @@ class InstitutionBuilder
         $this
             ->institution
             ->setName($name)
-        ;
-
-        return $this;
-    }
-
-    /**
-     * @param int $generalScore
-     * @return InstitutionBuilder
-     * @throws InvalidGeneralScoreException
-     */
-    public function addGeneralScore(int $generalScore): self
-    {
-        $this
-            ->institution
-            ->setGeneralScore($generalScore)
         ;
 
         return $this;
