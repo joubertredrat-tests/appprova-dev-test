@@ -5,25 +5,25 @@
 
 namespace AppProva\Domain\Service;
 
-use AppProva\Domain\Builder\InstitutionCourseScoreBuilder;
+use AppProva\Domain\Builder\ScoreBuilder;
 use AppProva\Domain\Entity\Course;
 use AppProva\Domain\Entity\Institution;
-use AppProva\Domain\Entity\InstitutionCourseScore;
-use AppProva\Domain\Exception\InstitutionCourseScore\NotFoundException;
-use AppProva\Domain\Repository\InstitutionCourseScoreRepositoryInterface;
+use AppProva\Domain\Entity\Score;
+use AppProva\Domain\Exception\Score\NotFoundException;
+use AppProva\Domain\Repository\ScoreRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * InstitutionCourseScore Service
+ * Score Service
  *
  * @package AppProva\Domain\Service
  */
-class InstitutionCourseScoreService
+class ScoreService
 {
     /**
-     * @var InstitutionCourseScoreRepositoryInterface
+     * @var ScoreRepositoryInterface
      */
-    private $institutionCourseScoreRepository;
+    private $scoreRepository;
 
     /**
      * @var LoggerInterface
@@ -31,49 +31,55 @@ class InstitutionCourseScoreService
     private $logger;
 
     /**
-     * InstitutionCourseScoreService constructor
+     * ScoreService constructor
      *
-     * @param InstitutionCourseScoreRepositoryInterface $institutionCourseScoreRepository
+     * @param ScoreRepositoryInterface $scoreRepository
      * @param LoggerInterface $logger
      */
     public function __construct(
-        InstitutionCourseScoreRepositoryInterface $institutionCourseScoreRepository,
+        ScoreRepositoryInterface $scoreRepository,
         LoggerInterface $logger
     ) {
-        $this->institutionCourseScoreRepository = $institutionCourseScoreRepository;
+        $this->scoreRepository = $scoreRepository;
         $this->logger = $logger;
     }
 
     /**
      * @param Institution $institution
      * @param Course $course
-     * @param int $score
-     * @return InstitutionCourseScore
+     * @param int $institutionScore
+     * @param int $courseGeneralScore
+     * @param int $courseStudentAvgScore
+     * @return Score
      * @throws \Throwable
      */
     public function scoreAdd(
         Institution $institution,
         Course $course,
-        int $score
-    ): InstitutionCourseScore {
+        int $institutionScore,
+        int $courseGeneralScore,
+        int $courseStudentAvgScore
+    ): Score {
         try {
-            $institutionCourseScoreBuilder = new InstitutionCourseScoreBuilder();
-            $institutionCourseScore = $institutionCourseScoreBuilder
+            $scoreBuilder = new ScoreBuilder();
+            $score = $scoreBuilder
                 ->addInstitution($institution)
                 ->addCourse($course)
-                ->addScore($score)
+                ->addInstitutionScore($institutionScore)
+                ->addCourseGeneralScore($courseGeneralScore)
+                ->addCourseStudentAvgScore($courseStudentAvgScore)
                 ->get()
             ;
 
             $this
-                ->institutionCourseScoreRepository
-                ->add($institutionCourseScore)
+                ->scoreRepository
+                ->add($score)
             ;
 
-            return $institutionCourseScore;
+            return $score;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on add course score for institution, unknown error: %s",
+                "Fail on add score, unknown error: %s",
                 $e->getMessage()
             );
 
@@ -96,7 +102,7 @@ class InstitutionCourseScoreService
             $institutionCourseScore = $this->scoreGet($id);
 
             $this
-                ->institutionCourseScoreRepository
+                ->scoreRepository
                 ->delete($institutionCourseScore)
             ;
 
@@ -116,17 +122,17 @@ class InstitutionCourseScoreService
 
     /**
      * @param int $id
-     * @return InstitutionCourseScore
+     * @return Score
      */
-    public function scoreGet(int $id): InstitutionCourseScore
+    public function scoreGet(int $id): Score
     {
         try {
             $institutionCourseScore = $this
-                ->institutionCourseScoreRepository
+                ->scoreRepository
                 ->get($id)
             ;
 
-            if (!$institutionCourseScore instanceof InstitutionCourseScore) {
+            if (!$institutionCourseScore instanceof Score) {
                 throw NotFoundException::onDatabase($id);
             }
 

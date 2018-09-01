@@ -11,8 +11,8 @@ services:
     arguments:
       - AppProva\Domain\Entity\Course
 
-  app.repository.institution_course_score:
-    class: AppBundle\Repository\InstitutionCourseScoreRepository
+  app.repository.score:
+    class: AppBundle\Repository\ScoreRepository
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments:
-    - AppProva\Domain\Entity\InstitutionCourseScore
+    - AppProva\Domain\Entity\Score

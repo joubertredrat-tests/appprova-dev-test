@@ -32,14 +32,14 @@ class Course
     /**
      * @var ArrayCollection
      */
-    private $institutionsScore;
+    private $score;
 
     /**
      * Course constructor.
      */
     public function __construct()
     {
-        $this->institutionsScore = new ArrayCollection();
+        $this->score = new ArrayCollection();
     }
 
     /**
@@ -68,12 +68,12 @@ class Course
     }
 
     /**
-     * @return array<InstitutionCourseScore>
+     * @return array<Score>
      */
     public function getInstitutionScore(): array
     {
         return $this
-            ->institutionsScore
+            ->score
             ->toArray()
         ;
     }

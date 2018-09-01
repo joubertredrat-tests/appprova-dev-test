@@ -3,12 +3,12 @@
  * @author Joubert RedRat <me+github@redrat.com.br>
  */
 
-namespace AppProva\Domain\Exception\InstitutionCourseScore;
+namespace AppProva\Domain\Exception\Score;
 
 /**
  * InvalidScore Exception
  *
- * @package AppProva\Domain\Exception\InstitutionCourseScore
+ * @package AppProva\Domain\Exception\Score
  */
 class InvalidScoreException extends \Exception
 {

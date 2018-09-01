@@ -32,14 +32,14 @@ class Institution
     /**
      * @var ArrayCollection
      */
-    private $coursesScore;
+    private $score;
 
     /**
      * Institution constructor
      */
     public function __construct()
     {
-        $this->coursesScore = new ArrayCollection();
+        $this->score = new ArrayCollection();
     }
 
     /**
@@ -68,52 +68,52 @@ class Institution
     }
 
     /**
-     * @param InstitutionCourseScore $courseScore
+     * @param Score $score
      * @return bool
      */
-    public function hasCourseScore(InstitutionCourseScore $courseScore): bool
+    public function hasScore(Score $score): bool
     {
         return $this
-            ->coursesScore
-            ->contains($courseScore)
+            ->score
+            ->contains($score)
         ;
     }
 
     /**
-     * @param InstitutionCourseScore $courseScore
+     * @param Score $score
      * @return void
      */
-    public function addCourseScore(InstitutionCourseScore $courseScore): void
+    public function addCourseScore(Score $score): void
     {
-        if ($this->hasCourseScore($courseScore)) {
+        if ($this->hasScore($score)) {
             return;
         }
 
         $this
-            ->coursesScore
-            ->add($courseScore)
+            ->score
+            ->add($score)
         ;
     }
 
     /**
-     * @param InstitutionCourseScore $courseScore
+     * @param Score $score
      * @return void
      */
-    public function removeCourseScore(InstitutionCourseScore $courseScore): void
+    public function removeScore(Score $score): void
     {
         $this
-            ->coursesScore
-            ->removeElement($courseScore)
+            ->score
+            ->removeElement($score)
         ;
     }
 
     /**
-     * @return array<InstitutionCourseScore>
+     * @return array<Score>
      */
-    public function getCourseScore(): array
+    public function getScore(): array
     {
         return $this
-            ->coursesScore
+            ->score
             ->toArray()
         ;
     }

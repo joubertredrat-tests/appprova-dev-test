@@ -21,6 +21,6 @@ AppProva\Domain\Entity\Institution:
     prePersist: [ forgeCreatedAt ]
     preUpdate: [ forgeUpdatedAt ]
   oneToMany:
-    coursesScore:
-      targetEntity: AppProva\Domain\Entity\InstitutionCourseScore
+    score:
+      targetEntity: AppProva\Domain\Entity\Score
       mappedBy: institution

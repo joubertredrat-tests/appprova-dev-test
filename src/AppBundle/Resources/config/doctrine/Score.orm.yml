@@ -1,7 +1,7 @@
-AppProva\Domain\Entity\InstitutionCourseScore:
+AppProva\Domain\Entity\Score:
   type: entity
   table: null
-  repositoryClass: AppBundle\Repository\InstitutionCourseScoreRepository
+  repositoryClass: AppBundle\Repository\ScoreRepository
   id:
     id:
       type: integer
@@ -9,7 +9,13 @@ AppProva\Domain\Entity\InstitutionCourseScore:
       generator:
         strategy: AUTO
   fields:
-    score:
+    institutionScore:
+      type: integer
+      length: 3
+    courseGeneralScore:
+      type: integer
+      length: 3
+    courseStudentAvgScore:
       type: integer
       length: 3
     createdAt:
@@ -23,13 +29,13 @@ AppProva\Domain\Entity\InstitutionCourseScore:
   manyToOne:
     institution:
       targetEntity: AppProva\Domain\Entity\Institution
-      inversedBy: coursesScore
+      inversedBy: score
       joinColumn:
         name: institution_id
         referencedColumnName: id
     course:
       targetEntity: AppProva\Domain\Entity\Course
-      inversedBy: institutionsScore
+      inversedBy: score
       joinColumn:
         name: course_id
         referencedColumnName: id
