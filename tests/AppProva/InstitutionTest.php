@@ -5,6 +5,7 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
 use AppProva\Domain\Service\InstitutionService;
 use Tests\AppBundleTestCase;
 
@@ -32,6 +33,24 @@ class InstitutionTest extends AppBundleTestCase
 
         self::assertEquals($name, $institution->getName());
         self::assertEquals($generalScore, $institution->getGeneralScore());
+    }
+
+    /**
+     * test ExceptionOnWrongGeneralScore
+     *
+     * @return void
+     * @throws InvalidGeneralScoreException
+     * @throws \Throwable
+     */
+    public function testExceptionOnWrongGeneralScore(): void
+    {
+        self::expectException(InvalidGeneralScoreException::class);
+
+        $name = "Faculdade A";
+        $generalScore = 101;
+
+        $service = $this->getService();
+        $service->institutionAdd($name, $generalScore);
     }
 
     /**
