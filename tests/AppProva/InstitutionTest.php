@@ -6,6 +6,7 @@
 namespace Tests\AppProva;
 
 use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
+use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Service\InstitutionService;
 use Tests\AppBundleTestCase;
 
@@ -81,6 +82,28 @@ class InstitutionTest extends AppBundleTestCase
         self::assertEquals($generalScoreNew, $institutionUpdated->getGeneralScore());
         self::assertNotEquals($nameOld, $institutionUpdated->getName());
         self::assertNotEquals($generalScoreOld, $institutionUpdated->getGeneralScore());
+    }
+
+    /**
+     * test ExceptionOnUpdateInstitutionNotFoundOnDatabase
+     *
+     * @return void
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function testExceptionOnUpdateInstitutionNotFoundOnDatabase(): void
+    {
+        self::expectException(NotFoundException::class);
+
+        $service = $this->getService();
+
+        $service
+            ->institutionUpdate(
+                99999999999,
+                "Faculdade B",
+                10
+            )
+        ;
     }
 
     /**
