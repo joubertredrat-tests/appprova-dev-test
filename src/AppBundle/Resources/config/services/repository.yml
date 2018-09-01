@@ -1,6 +1,12 @@
 services:
-    app.repository.institution:
-        class: AppBundle\Repository\InstitutionRepository
-        factory: ["@doctrine.orm.entity_manager", getRepository]
-        arguments:
-            - AppProva\Domain\Entity\Institution
+  app.repository.institution:
+    class: AppBundle\Repository\InstitutionRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+      - AppProva\Domain\Entity\Institution
+
+  app.repository.course:
+    class: AppBundle\Repository\CourseRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+      - AppProva\Domain\Entity\Course

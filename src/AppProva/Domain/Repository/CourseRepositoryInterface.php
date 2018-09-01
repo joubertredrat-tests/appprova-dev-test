@@ -7,6 +7,8 @@
 
 namespace AppProva\Domain\Repository;
 
+use AppProva\Domain\Entity\Course;
+
 /**
  * Course Repository Interface
  *
@@ -14,5 +16,9 @@ namespace AppProva\Domain\Repository;
  */
 interface CourseRepositoryInterface
 {
-
+    /**
+     * @param Course $course
+     * @return void
+     */
+    public function add(Course $course): void;
 }
