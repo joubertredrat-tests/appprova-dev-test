@@ -55,10 +55,18 @@ class CourseTest extends AppBundleTestCase
      * test CourseDelete
      *
      * @return void
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function testCourseDelete(): void
     {
-        self::assertTrue(false);
+        $name = "Sistemas de Informação";
+
+        $service = $this->getService();
+        $course = $service->courseAdd($name);
+        $assert = $service->courseDelete($course->getId());
+
+        self::assertTrue($assert);
     }
 
     /**

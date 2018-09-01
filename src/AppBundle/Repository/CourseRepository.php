@@ -50,4 +50,15 @@ class CourseRepository extends EntityRepository implements CourseRepositoryInter
         $entityManager->persist($course);
         $entityManager->flush($course);
     }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function delete(Course $course): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($course);
+        $entityManager->flush($course);
+    }
 }

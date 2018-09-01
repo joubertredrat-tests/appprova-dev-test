@@ -96,7 +96,7 @@ class CourseService
             return $course;
         } catch (NotFoundException $e) {
             $message = sprintf(
-                "Fail on get course: %s",
+                "Fail on update course: %s",
                 $e->getMessage()
             );
 
@@ -108,7 +108,51 @@ class CourseService
             throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on get course, unknown error: %s",
+                "Fail on update course, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     * @throws NotFoundException
+     * @throws \Throwable
+     */
+    public function courseDelete(int $id): bool
+    {
+        try {
+            $institution = $this->courseGet($id);
+
+            $this
+                ->courseRepository
+                ->delete($institution)
+            ;
+
+            return true;
+        } catch (NotFoundException $e) {
+            $message = sprintf(
+                "Fail on delete course: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+
+            throw $e;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on delete course, unknown error: %s",
                 $e->getMessage()
             );
 

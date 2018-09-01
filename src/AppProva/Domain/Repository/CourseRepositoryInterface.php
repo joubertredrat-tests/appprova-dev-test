@@ -33,4 +33,10 @@ interface CourseRepositoryInterface
      * @return void
      */
     public function update(Course $course): void;
+
+    /**
+     * @param Course $course
+     * @return void
+     */
+    public function delete(Course $course): void;
 }
