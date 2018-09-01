@@ -1,0 +1,35 @@
+AppProva\Domain\Entity\InstitutionCourseScore:
+  type: entity
+  table: null
+  repositoryClass: AppBundle\Repository\InstitutionCourseScoreRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    score:
+      type: integer
+      length: 3
+    createdAt:
+      type: datetime
+    updatedAt:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ forgeCreatedAt ]
+    preUpdate: [ forgeUpdatedAt ]
+  manyToOne:
+    institution:
+      targetEntity: AppProva\Domain\Entity\Institution
+      inversedBy: coursesScore
+      joinColumn:
+        name: institution_id
+        referencedColumnName: id
+    course:
+      targetEntity: AppProva\Domain\Entity\Course
+      inversedBy: institutionsScore
+      joinColumn:
+        name: course_id
+        referencedColumnName: id

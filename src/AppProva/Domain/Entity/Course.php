@@ -7,6 +7,7 @@
 
 namespace AppProva\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use RedRat\Entity\DateTimeTrait;
 
 /**
@@ -27,6 +28,19 @@ class Course
      * @var string
      */
     private $name;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $institutionsScore;
+
+    /**
+     * Course constructor.
+     */
+    public function __construct()
+    {
+        $this->institutionsScore = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -51,5 +65,16 @@ class Course
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return array<InstitutionCourseScore>
+     */
+    public function getInstitutionScore(): array
+    {
+        return $this
+            ->institutionsScore
+            ->toArray()
+        ;
     }
 }

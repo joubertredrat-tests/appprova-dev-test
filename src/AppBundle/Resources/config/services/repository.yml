@@ -10,3 +10,9 @@ services:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments:
       - AppProva\Domain\Entity\Course
+
+  app.repository.institution_course_score:
+    class: AppBundle\Repository\InstitutionCourseScoreRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+    - AppProva\Domain\Entity\InstitutionCourseScore

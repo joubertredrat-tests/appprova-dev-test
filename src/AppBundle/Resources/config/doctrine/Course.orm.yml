@@ -20,3 +20,7 @@ AppProva\Domain\Entity\Course:
   lifecycleCallbacks:
     prePersist: [ forgeCreatedAt ]
     preUpdate: [ forgeUpdatedAt ]
+  oneToMany:
+    institutionsScore:
+      targetEntity: AppProva\Domain\Entity\InstitutionCourseScore
+      mappedBy: course
