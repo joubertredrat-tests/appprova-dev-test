@@ -29,44 +29,44 @@ class CourseScoreTest extends AppBundleTestCase
      */
     protected $course;
 
-    /**
-     * test AddInstitutionCourseScore
-     *
-     * @return void
-     * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
-     * @throws \Throwable
-     */
-    public function testAddInstitutionCourseScore(): void
-    {
-        $institution = $this->getInstitution();
-        $course = $this->getCourse();
-        $score = 80;
-
-        $service = $this->getService();
-        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
-
-        self::assertSame($score, $institutionCourseScore->getScore());
-    }
-
-    /**
-     * test DeleteInstitutionCourseScore
-     *
-     * @return void
-     * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
-     * @throws \Throwable
-     */
-    public function testDeleteInstitutionCourseScore(): void
-    {
-        $institution = $this->getInstitution();
-        $course = $this->getCourse();
-        $score = 80;
-
-        $service = $this->getService();
-        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
-        $assert = $service->scoreDelete($institutionCourseScore->getId());
-
-        self::assertTrue($assert);
-    }
+//    /**
+//     * test AddInstitutionCourseScore
+//     *
+//     * @return void
+//     * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
+//     * @throws \Throwable
+//     */
+//    public function testAddInstitutionCourseScore(): void
+//    {
+//        $institution = $this->getInstitution();
+//        $course = $this->getCourse();
+//        $score = 80;
+//
+//        $service = $this->getService();
+//        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
+//
+//        self::assertSame($score, $institutionCourseScore->getScore());
+//    }
+//
+//    /**
+//     * test DeleteInstitutionCourseScore
+//     *
+//     * @return void
+//     * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
+//     * @throws \Throwable
+//     */
+//    public function testDeleteInstitutionCourseScore(): void
+//    {
+//        $institution = $this->getInstitution();
+//        $course = $this->getCourse();
+//        $score = 80;
+//
+//        $service = $this->getService();
+//        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
+//        $assert = $service->scoreDelete($institutionCourseScore->getId());
+//
+//        self::assertTrue($assert);
+//    }
 
     /**
      * @return Institution
