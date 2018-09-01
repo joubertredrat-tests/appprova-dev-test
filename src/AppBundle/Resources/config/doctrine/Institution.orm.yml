@@ -1,0 +1,25 @@
+AppProva\Domain\Entity\Institution:
+  type: entity
+  table: null
+  repositoryClass: AppBundle\Repository\InstitutionRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 500
+    generalScore:
+      type: integer
+      length: 3
+    createdAt:
+      type: datetime
+    updatedAt:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ forgeCreatedAt ]
+    preUpdate: [ forgeUpdatedAt ]

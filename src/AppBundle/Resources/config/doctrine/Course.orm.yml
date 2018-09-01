@@ -1,0 +1,22 @@
+AppProva\Domain\Entity\Course:
+  type: entity
+  table: null
+  repositoryClass: AppBundle\Repository\CourseRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 500
+    createdAt:
+      type: datetime
+    updatedAt:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [ forgeCreatedAt ]
+    preUpdate: [ forgeUpdatedAt ]

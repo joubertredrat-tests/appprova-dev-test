@@ -1,0 +1,6 @@
+services:
+    app.repository.institution:
+        class: AppBundle\Repository\InstitutionRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - AppProva\Domain\Entity\Institution
