@@ -15,8 +15,20 @@ use AppProva\Domain\Entity\InstitutionCourseScore;
 interface InstitutionCourseScoreRepositoryInterface
 {
     /**
+     * @param int $id
+     * @return InstitutionCourseScore|null
+     */
+    public function get(int $id): ?InstitutionCourseScore;
+
+    /**
      * @param InstitutionCourseScore $institutionCourseScore
      * @return void
      */
     public function add(InstitutionCourseScore $institutionCourseScore): void;
+
+    /**
+     * @param InstitutionCourseScore $institutionCourseScore
+     * @return void
+     */
+    public function delete(InstitutionCourseScore $institutionCourseScore): void;
 }

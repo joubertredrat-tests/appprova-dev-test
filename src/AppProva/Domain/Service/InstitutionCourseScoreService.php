@@ -9,6 +9,7 @@ use AppProva\Domain\Builder\InstitutionCourseScoreBuilder;
 use AppProva\Domain\Entity\Course;
 use AppProva\Domain\Entity\Institution;
 use AppProva\Domain\Entity\InstitutionCourseScore;
+use AppProva\Domain\Exception\InstitutionCourseScore\NotFoundException;
 use AppProva\Domain\Repository\InstitutionCourseScoreRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
@@ -50,7 +51,7 @@ class InstitutionCourseScoreService
      * @return InstitutionCourseScore
      * @throws \Throwable
      */
-    public function addScore(
+    public function scoreAdd(
         Institution $institution,
         Course $course,
         int $score
@@ -82,6 +83,74 @@ class InstitutionCourseScoreService
             ;
 
             throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function scoreDelete(int $id): bool
+    {
+        try {
+            $institutionCourseScore = $this->scoreGet($id);
+
+            $this
+                ->institutionCourseScoreRepository
+                ->delete($institutionCourseScore)
+            ;
+
+            return true;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on delete course score for institution, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return InstitutionCourseScore
+     */
+    public function scoreGet(int $id): InstitutionCourseScore
+    {
+        try {
+            $institutionCourseScore = $this
+                ->institutionCourseScoreRepository
+                ->get($id)
+            ;
+
+            if (!$institutionCourseScore instanceof InstitutionCourseScore) {
+                throw NotFoundException::onDatabase($id);
+            }
+
+            return $institutionCourseScore;
+        } catch (NotFoundException $e) {
+            $message = sprintf(
+                "Fail on get course score for institution: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
+        } catch (\Throwable $e) {
+            $message = sprintf(
+                "Fail on get course score for institution, unknown error: %s",
+                $e->getMessage()
+            );
+
+            $this
+                ->logger
+                ->error($message)
+            ;
         }
     }
 }

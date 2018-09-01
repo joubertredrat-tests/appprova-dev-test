@@ -43,7 +43,7 @@ class CourseScoreTest extends AppBundleTestCase
         $score = 80;
 
         $service = $this->getService();
-        $institutionCourseScore = $service->addScore($institution, $course, $score);
+        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
 
         self::assertSame($score, $institutionCourseScore->getScore());
     }
@@ -52,10 +52,19 @@ class CourseScoreTest extends AppBundleTestCase
      * test DeleteInstitutionCourseScore
      *
      * @return void
+     * @throws \AppProva\Domain\Exception\Institution\InvalidGeneralScoreException
+     * @throws \Throwable
      */
     public function testDeleteInstitutionCourseScore(): void
     {
-        $assert = false;;
+        $institution = $this->getInstitution();
+        $course = $this->getCourse();
+        $score = 80;
+
+        $service = $this->getService();
+        $institutionCourseScore = $service->scoreAdd($institution, $course, $score);
+        $assert = $service->scoreDelete($institutionCourseScore->getId());
+
         self::assertTrue($assert);
     }
 

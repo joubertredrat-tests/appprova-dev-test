@@ -18,6 +18,17 @@ class InstitutionCourseScoreRepository extends EntityRepository implements Insti
 {
     /**
      * {@inheritdoc}
+     */
+    public function get(int $id): ?InstitutionCourseScore
+    {
+        /** @var InstitutionCourseScore $institutionCourseScore */
+        $institutionCourseScore = $this->find($id);
+
+        return $institutionCourseScore;
+    }
+
+    /**
+     * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
      */
     public function add(InstitutionCourseScore $institutionCourseScore): void
@@ -25,5 +36,16 @@ class InstitutionCourseScoreRepository extends EntityRepository implements Insti
         $entityManager = $this->getEntityManager();
         $entityManager->persist($institutionCourseScore);
         $entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function delete(InstitutionCourseScore $institutionCourseScore): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($institutionCourseScore);
+        $entityManager->flush($institutionCourseScore);
     }
 }
