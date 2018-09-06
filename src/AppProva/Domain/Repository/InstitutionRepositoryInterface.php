@@ -19,11 +19,13 @@ interface InstitutionRepositoryInterface
     /**
      * @param string|null $institutionName
      * @param string|null $courseName
+     * @param int|null $institutionGeneralScore
      * @return array<Institution>
      */
     public function getListBy(
         ?string $institutionName = null,
-        ?string $courseName = null
+        ?string $courseName = null,
+        ?int $institutionGeneralScore = null
     ): array;
 
     /**
