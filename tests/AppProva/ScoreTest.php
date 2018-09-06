@@ -124,7 +124,8 @@ class ScoreTest extends AppBundleTestCase
         $service = new InstitutionService($repository, $logger);
 
         $name = "Faculdade A";
-        $this->institution = $service->institutionAdd($name);
+        $generalScore = 100;
+        $this->institution = $service->institutionAdd($name, $generalScore);
 
         return $this->institution;
     }

@@ -9,7 +9,6 @@ namespace AppProva\Domain\Service;
 
 use AppProva\Domain\Builder\InstitutionBuilder;
 use AppProva\Domain\Entity\Institution;
-use AppProva\Domain\Exception\Institution\InvalidGeneralScoreException;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Repository\InstitutionRepositoryInterface;
 use Psr\Log\LoggerInterface;
@@ -51,12 +50,13 @@ class InstitutionService
      * @return Institution
      * @throws \Throwable
      */
-    public function institutionAdd(string $name): Institution
+    public function institutionAdd(string $name, int $generalScore): Institution
     {
         try {
             $institutionBuilder = new InstitutionBuilder();
             $institution = $institutionBuilder
                 ->addName($name)
+                ->addGeneralScore($generalScore)
                 ->get()
             ;
 
@@ -68,7 +68,7 @@ class InstitutionService
             return $institution;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on create institution, unknown error: %s",
+                "Fail on create institution: %s",
                 $e->getMessage()
             );
 
@@ -84,15 +84,16 @@ class InstitutionService
     /**
      * @param int $id
      * @param string $name
+     * @param int $generalScore
      * @return Institution
-     * @throws NotFoundException
      * @throws \Throwable
      */
-    public function institutionUpdate(int $id, string $name): Institution
+    public function institutionUpdate(int $id, string $name, int $generalScore): Institution
     {
         try {
             $institution = $this->institutionGet($id);
             $institution->setName($name);
+            $institution->setGeneralScore($generalScore);
 
             $this
                 ->institutionRepository
@@ -100,21 +101,9 @@ class InstitutionService
             ;
 
             return $institution;
-        } catch (NotFoundException $e) {
-            $message = sprintf(
-                "Fail on update institution: %s",
-                $e->getMessage()
-            );
-
-            $this
-                ->logger
-                ->error($message)
-            ;
-
-            throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on update institution, unknown error: %s",
+                "Fail on update institution: %s",
                 $e->getMessage()
             );
 
@@ -130,7 +119,6 @@ class InstitutionService
     /**
      * @param int $id
      * @return bool
-     * @throws NotFoundException
      * @throws \Throwable
      */
     public function institutionDelete(int $id): bool
@@ -144,21 +132,9 @@ class InstitutionService
             ;
 
             return true;
-        } catch (NotFoundException $e) {
-            $message = sprintf(
-                "Fail on delete institution: %s",
-                $e->getMessage()
-            );
-
-            $this
-                ->logger
-                ->error($message)
-            ;
-
-            throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on delete institution, unknown error: %s",
+                "Fail on delete institution: %s",
                 $e->getMessage()
             );
 

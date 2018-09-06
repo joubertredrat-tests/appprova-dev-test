@@ -12,6 +12,9 @@ AppProva\Domain\Entity\Institution:
     name:
       type: string
       length: 500
+    generalScore:
+      type: integer
+      length: 3
     createdAt:
       type: datetime
     updatedAt:

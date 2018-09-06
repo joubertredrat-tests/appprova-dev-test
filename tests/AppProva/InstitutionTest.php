@@ -5,6 +5,7 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Exception\Institution\InvalidScoreException;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Service\InstitutionService;
 use Tests\AppBundleTestCase;
@@ -26,9 +27,48 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionCreate(): void
     {
         $name = "Faculdade A";
+        $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name);
+        $institution = $service->institutionAdd($name, $generalScore);
+
+        self::assertEquals($name, $institution->getName());
+    }
+
+    /**
+     * test ExceptionOnCreateInstitutionScoreLessThanZero
+     *
+     * @return void
+     * @throws \Throwable
+     */
+    public function testExceptionOnCreateInstitutionScoreLessThanZero(): void
+    {
+        self::expectException(InvalidScoreException::class);
+
+        $name = "Faculdade A";
+        $generalScore = -1;
+
+        $service = $this->getService();
+        $institution = $service->institutionAdd($name, $generalScore);
+
+        self::assertEquals($name, $institution->getName());
+    }
+
+    /**
+     * test ExceptionOnCreateInstitutionScoreLessThanZero
+     *
+     * @return void
+     * @throws \Throwable
+     */
+    public function testExceptionOnCreateInstitutionScoreMoreThanOneHundred(): void
+    {
+        self::expectException(InvalidScoreException::class);
+
+        $name = "Faculdade A";
+        $generalScore = 101;
+
+        $service = $this->getService();
+        $institution = $service->institutionAdd($name, $generalScore);
 
         self::assertEquals($name, $institution->getName());
     }
@@ -41,24 +81,28 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionUpdate(): void
     {
         $nameOld = "Faculdade A";
+        $generalScoreOld = 100;
         $nameNew = "Faculdade B";
+        $generalScoreNew = 50;
 
         $service = $this->getService();
-        $institutionCreated = $service->institutionAdd($nameOld);
+        $institutionCreated = $service->institutionAdd($nameOld, $generalScoreOld);
         $institutionUpdated = $service->institutionUpdate(
             $institutionCreated->getId(),
-            $nameNew
+            $nameNew,
+            $generalScoreNew
         );
 
         self::assertEquals($nameNew, $institutionUpdated->getName());
+        self::assertEquals($generalScoreNew, $institutionUpdated->getGeneralScore());
         self::assertNotEquals($nameOld, $institutionUpdated->getName());
+        self::assertNotEquals($generalScoreOld, $institutionUpdated->getGeneralScore());
     }
 
     /**
      * test ExceptionOnUpdateInstitutionNotFoundOnDatabase
      *
      * @return void
-     * @throws \Exception
      * @throws \Throwable
      */
     public function testExceptionOnUpdateInstitutionNotFoundOnDatabase(): void
@@ -70,7 +114,8 @@ class InstitutionTest extends AppBundleTestCase
         $service
             ->institutionUpdate(
                 99999999999,
-                "Faculdade B"
+                "Faculdade B",
+                100
             )
         ;
     }
@@ -84,9 +129,10 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionDelete(): void
     {
         $name = "Faculdade A";
+        $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name);
+        $institution = $service->institutionAdd($name, $generalScore);
         $assert = $service->institutionDelete($institution->getId());
 
         self::assertTrue($assert);
@@ -95,7 +141,6 @@ class InstitutionTest extends AppBundleTestCase
     /**
      * test ExceptionOnDeleteInstitutionNotFoundOnDatabase
      *
-     * @throws NotFoundException
      * @throws \Throwable
      */
     public function testExceptionOnDeleteInstitutionNotFoundOnDatabase(): void
@@ -115,12 +160,14 @@ class InstitutionTest extends AppBundleTestCase
     public function testInstitutionGet(): void
     {
         $name = "Faculdade A";
+        $generalScore = 100;
 
         $service = $this->getService();
-        $institution = $service->institutionAdd($name);
+        $institution = $service->institutionAdd($name, $generalScore);
         $institutionFound = $service->institutionGet($institution->getId());
 
         self::assertEquals($name, $institutionFound->getName());
+        self::assertEquals($generalScore, $institutionFound->getGeneralScore());
     }
 
     /**

@@ -42,6 +42,21 @@ class InstitutionBuilder
     }
 
     /**
+     * @param int $generalScore
+     * @return $this
+     * @throws \AppProva\Domain\Exception\Institution\InvalidScoreException
+     */
+    public function addGeneralScore(int $generalScore)
+    {
+        $this
+            ->institution
+            ->setGeneralScore($generalScore)
+        ;
+
+        return $this;
+    }
+
+    /**
      * @return Institution
      */
     public function get(): Institution
