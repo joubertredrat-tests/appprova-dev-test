@@ -30,8 +30,8 @@ class FilterTest extends AppBundleTestCase
         $data = $service->getListBy($filter);
 
         self::assertEquals($results, count($data));
-        self::assertStringStartsWith($filter, $data[0]->getName());
-        self::assertStringStartsWith($filter, $data[1]->getName());
+        self::assertContains($filter, $data[0]->getName());
+        self::assertContains($filter, $data[1]->getName());
         self::assertThat(
             $data[0]->getGeneralScore(),
             $this->logicalAnd(
@@ -40,6 +40,22 @@ class FilterTest extends AppBundleTestCase
                 )
             )
         );
+    }
+
+    /**
+     * test FilterByCourseName
+     *
+     * @return void
+     */
+    public function testFilterByCourseName(): void
+    {
+        $filter = "Informação";
+        $results = 1;
+
+        $data = [];
+
+        self::assertEquals($results, count($data));
+        self::assertContains($filter, "");
     }
 
     /**
