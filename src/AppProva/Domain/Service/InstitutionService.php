@@ -45,6 +45,18 @@ class InstitutionService
     }
 
     /**
+     * @param string|null $institutionName
+     * @return array
+     */
+    public function getListBy(?string $institutionName = null): array
+    {
+        return $this
+            ->institutionRepository
+            ->getListBy($institutionName)
+        ;
+    }
+
+    /**
      * @param string $name
      * @param int $generalScore
      * @return Institution

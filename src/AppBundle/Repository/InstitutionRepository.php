@@ -19,6 +19,39 @@ use Doctrine\ORM\EntityRepository;
 class InstitutionRepository extends EntityRepository implements InstitutionRepositoryInterface
 {
     /**
+     * {@inheritdoc}
+     */
+    public function getListBy(?string $institutionName = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('i');
+
+        $queryBuilder
+            ->join('i.score', 's')
+            ->join('s.course', 'c')
+        ;
+
+        if ($institutionName) {
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder
+                        ->expr()
+                        ->like('i.name', ':institutionName')
+                )
+                ->setParameter('institutionName', '%' . $institutionName . '%')
+            ;
+        }
+
+        $queryBuilder->orderBy('i.generalScore', 'desc');
+
+        $result = $queryBuilder
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $result;
+    }
+
+    /**
      * @param int $id
      * @return Institution|null
      */

@@ -27,19 +27,19 @@ class AppFixture extends Fixture
     {
         $institution1 = new Institution();
         $institution1->setName("Centro Universitário Foo");
-        $institution1->setGeneralScore(100);
+        $institution1->setGeneralScore(91);
 
         $institution2 = new Institution();
         $institution2->setName("Universidade Bar One");
-        $institution2->setGeneralScore(100);
+        $institution2->setGeneralScore(96);
 
         $institution3 = new Institution();
         $institution3->setName("Universidade Bar Two");
-        $institution3->setGeneralScore(100);
+        $institution3->setGeneralScore(90);
 
         $institution4 = new Institution();
         $institution4->setName("Centro Universitário Baz");
-        $institution4->setGeneralScore(100);
+        $institution4->setGeneralScore(91);
 
         $manager->persist($institution1);
         $manager->persist($institution2);

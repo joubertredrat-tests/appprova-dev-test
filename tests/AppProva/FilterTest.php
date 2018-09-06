@@ -5,6 +5,7 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Service\InstitutionService;
 use Tests\AppBundleTestCase;
 
 /**
@@ -18,14 +19,45 @@ class FilterTest extends AppBundleTestCase
      * test FilterByInstitutionName
      *
      * @return void
+     * @throws \Exception
      */
     public function testFilterByInstitutionName(): void
     {
         $filter = "Universidade";
         $results = 2;
 
-        self::assertEquals($results, null);
-        self::assertStringStartsWith($filter, null);
-        self::assertStringStartsWith($filter, null);
+        $service = $this->getService();
+        $data = $service->getListBy($filter);
+
+        self::assertEquals($results, count($data));
+        self::assertStringStartsWith($filter, $data[0]->getName());
+        self::assertStringStartsWith($filter, $data[1]->getName());
+        self::assertThat(
+            $data[0]->getGeneralScore(),
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(
+                    $data[1]->getGeneralScore()
+                )
+            )
+        );
+    }
+
+    /**
+     * @return InstitutionService
+     * @throws \Exception
+     */
+    public function getService(): InstitutionService
+    {
+        $repository = $this
+            ->getContainer()
+            ->get('app.repository.institution')
+        ;
+
+        $logger = $this
+            ->getContainer()
+            ->get('logger')
+        ;
+
+        return new InstitutionService($repository, $logger);
     }
 }

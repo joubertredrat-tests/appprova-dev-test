@@ -17,6 +17,12 @@ use AppProva\Domain\Entity\Institution;
 interface InstitutionRepositoryInterface
 {
     /**
+     * @param string|null $institutionName
+     * @return array<Institution>
+     */
+    public function getListBy(?string $institutionName = null): array;
+
+    /**
      * @param int $id
      * @return Institution|null
      */
