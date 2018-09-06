@@ -139,7 +139,6 @@ class ScoreController extends Controller
             $this->notifyViewErrorOnTop("Instituição informada não existe");
 
             return $this->redirectToRoute('app_manager_institution_list');
-
         } catch (CourseNotFoundException $e) {
             $this->notifyViewErrorOnTop("Curso informado não existe");
 
