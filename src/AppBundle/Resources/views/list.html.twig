@@ -1,0 +1,161 @@
+{% extends '@App/base.html.twig' %}
+
+{% block css %}
+
+    <style>
+        #main-content {
+            margin-top: 1em;
+            margin-bottom: -7em;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+
+    <div id="main-content" class="ui main container">
+
+        <h2>Enade</h2>
+
+        <form id="form-data" class="ui large form" method="get">
+            <div class="ui stacked field">
+                <div class="field">
+                    <label>Instituição:</label>
+                    <div class="ui left input">
+                        <input
+                            type="text"
+                            id="institution-name"
+                            name="institution-name"
+                            placeholder="Nome do instituto"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Curso:</label>
+                    <div class="ui left input">
+                        <input
+                            type="text"
+                            id="course-name"
+                            name="course-name"
+                            placeholder="Nome do curso"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Nota da instituição:</label>
+                    <div class="ui left input">
+                        <input
+                            type="text"
+                            id="institution-generalscore"
+                            name="institution-generalscore"
+                            placeholder="Nota da instituição"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Nota do curso:</label>
+                    <div class="ui left input">
+                        <input
+                            type="text"
+                            id="course-generalscore"
+                            name="course-generalscore"
+                            placeholder="Nota do curso"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Média dos alunos:</label>
+                    <div class="ui left input">
+                        <input
+                            type="text"
+                            id="course-studentavgscore"
+                            name="course-studentavgscore"
+                            placeholder="Média dos alunos"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button
+                        id="form-button-send"
+                        name="button"
+                        class="ui button"
+                        type="submit"
+                    >
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Nota geral</th>
+                    <th>Instituição</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% if institutions|length > 0 %}
+
+                {% for institution in institutions %}
+
+                    <tr>
+                        <td>{{ institution.generalscore }}</td>
+                        <td>{{ institution.name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+
+                            <table class="ui celled table">
+                                <thead>
+                                    <th>Curso</th>
+                                    <th>Nota do curso</th>
+                                    <th>Média dos alunos</th>
+                                </thead>
+                                <tbody>
+
+                                    {% for score in institution.score %}
+
+                                        <tr>
+                                            <td>{{ score.course.name }}</td>
+                                            <td>{{ score.courseGeneralScore }}</td>
+                                            <td>{{ score.courseStudentAvgScore }}</td>
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+                    <td colspan="2">Nenhuma instituição adicionado ao rank ainda</td>
+                </tr>
+
+            {% endif %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

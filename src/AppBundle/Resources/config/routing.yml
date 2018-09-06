@@ -1,3 +1,8 @@
+app_index:
+  path: /
+  controller: AppBundle:Index:list
+  methods: GET
+
 app_manager_index:
   path: /manager
   controller: AppBundle:Manager\Index:index
