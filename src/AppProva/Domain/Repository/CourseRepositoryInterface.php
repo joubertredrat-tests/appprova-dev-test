@@ -17,6 +17,11 @@ use AppProva\Domain\Entity\Course;
 interface CourseRepositoryInterface
 {
     /**
+     * @return array<Course>
+     */
+    public function getList(): array;
+
+    /**
      * @param int $id
      * @return Course|null
      */

@@ -41,6 +41,17 @@ class CourseService
     }
 
     /**
+     * @return array<Course>
+     */
+    public function getList(): array
+    {
+        return $this
+            ->courseRepository
+            ->getList()
+        ;
+    }
+
+    /**
      * @param string $name
      * @return Course
      * @throws \Throwable

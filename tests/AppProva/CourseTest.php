@@ -112,11 +112,15 @@ class CourseTest extends AppBundleTestCase
      * test CourseList
      *
      * @return void
+     * @throws \Exception
      */
     public function testCourseList(): void
     {
-        self::assertInternalType(IsType::TYPE_ARRAY, null);
-        self::assertInstanceOf(Course::class, null);
+        $service = $this->getService();
+        $data = $service->getList();
+
+        self::assertInternalType(IsType::TYPE_ARRAY, $data);
+        self::assertInstanceOf(Course::class, $data[0]);
     }
 
     /**

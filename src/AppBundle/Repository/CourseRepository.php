@@ -21,6 +21,20 @@ class CourseRepository extends EntityRepository implements CourseRepositoryInter
     /**
      * {@inheritdoc}
      */
+    public function getList(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        return $queryBuilder
+            ->orderBy('c.name', 'asc')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function get(int $id): ?Course
     {
         /** @var Course $course */
