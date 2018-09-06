@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  appprova-test-symfony-nginx:
+    build:
+      context: .
+      dockerfile: ./scripts/docker/nginx/Dockerfile
+    ports:
+    - 4000:4000
+    depends_on:
+    - appprova-test-symfony-php-fpm
+    volumes:
+    - app-volume:/var/www/html
+  appprova-test-symfony-php-fpm:
+    build:
+      context: .
+      dockerfile: ./scripts/docker/php-fpm/Dockerfile
+    volumes:
+    - app-volume:/var/www/html
+
+volumes:
+  app-volume:
