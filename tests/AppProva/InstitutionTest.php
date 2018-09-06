@@ -8,6 +8,7 @@ namespace Tests\AppProva;
 use AppProva\Domain\Exception\Institution\InvalidScoreException;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Service\InstitutionService;
+use PHPUnit\Framework\Constraint\IsType;
 use Tests\AppBundleTestCase;
 
 /**
@@ -168,6 +169,16 @@ class InstitutionTest extends AppBundleTestCase
 
         self::assertEquals($name, $institutionFound->getName());
         self::assertEquals($generalScore, $institutionFound->getGeneralScore());
+    }
+
+    /**
+     * test InstitutionList
+     *
+     * @return void
+     */
+    public function testInstitutionList(): void
+    {
+        self::assertInternalType(IsType::TYPE_ARRAY, null);
     }
 
     /**
