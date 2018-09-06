@@ -5,8 +5,10 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Entity\Course;
 use AppProva\Domain\Exception\Course\NotFoundException;
 use AppProva\Domain\Service\CourseService;
+use PHPUnit\Framework\Constraint\IsType;
 use Tests\AppBundleTestCase;
 
 /**
@@ -104,6 +106,17 @@ class CourseTest extends AppBundleTestCase
 
         $service = $this->getService();
         $service->courseDelete(99999999999);
+    }
+
+    /**
+     * test CourseList
+     *
+     * @return void
+     */
+    public function testCourseList(): void
+    {
+        self::assertInternalType(IsType::TYPE_ARRAY, null);
+        self::assertInstanceOf(Course::class, null);
     }
 
     /**
