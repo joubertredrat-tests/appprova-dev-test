@@ -5,6 +5,7 @@
 
 namespace Tests\AppProva;
 
+use AppProva\Domain\Entity\Institution;
 use AppProva\Domain\Exception\Institution\InvalidScoreException;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use AppProva\Domain\Service\InstitutionService;
@@ -175,10 +176,15 @@ class InstitutionTest extends AppBundleTestCase
      * test InstitutionList
      *
      * @return void
+     * @throws \Exception
      */
     public function testInstitutionList(): void
     {
-        self::assertInternalType(IsType::TYPE_ARRAY, null);
+        $service = $this->getService();
+        $data = $service->getList();
+
+        self::assertInternalType(IsType::TYPE_ARRAY, $data);
+        self::assertInstanceOf(Institution::class, $data[0]);
     }
 
     /**

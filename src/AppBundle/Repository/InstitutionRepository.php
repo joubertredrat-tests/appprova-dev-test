@@ -101,6 +101,20 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getList(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('i');
+
+        return $queryBuilder
+            ->orderBy('i.name', 'asc')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * @param int $id
      * @return Institution|null
      */

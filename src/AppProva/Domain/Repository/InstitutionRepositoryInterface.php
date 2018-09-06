@@ -33,6 +33,11 @@ interface InstitutionRepositoryInterface
     ): array;
 
     /**
+     * @return array<Institution>
+     */
+    public function getList(): array;
+
+    /**
      * @param int $id
      * @return Institution|null
      */
