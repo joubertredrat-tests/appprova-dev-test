@@ -1,0 +1,23 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+
+    <div class="ui fixed menu">
+        <div class="ui container">
+            <a class="header item">
+                AppProva
+            </a>
+
+            <a href="{{ path('app_manager_institution_list') }}" class="item">
+                <i class="globe icon"></i>Instituições
+            </a>
+
+        </div>
+    </div>
+
+    <div id="main-content" class="ui main container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

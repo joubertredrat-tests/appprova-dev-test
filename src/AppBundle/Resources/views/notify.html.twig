@@ -1,0 +1,47 @@
+{% for message in app.flashes('successTop') %}
+    <script>
+        AppNotify.successTop("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('infoTop') %}
+    <script>
+        AppNotify.infoTop("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('warningTop') %}
+    <script>
+        AppNotify.warningTop("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('errorTop') %}
+    <script>
+        AppNotify.errorTop("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('successRight') %}
+    <script>
+        AppNotify.successRight("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('infoRight') %}
+    <script>
+        AppNotify.infoRight("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('warningRight') %}
+    <script>
+        AppNotify.warningRight("{{ message }}");
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('errorRight') %}
+    <script>
+        AppNotify.errorRight("{{ message }}");
+    </script>
+{% endfor %}

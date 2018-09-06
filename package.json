@@ -1,0 +1,15 @@
+{
+  "name": "web-assets",
+  "author": "Joubert RedRat <me+github@redrat.com.br>",
+  "private": true,
+  "dependencies": {
+    "add": "^2.0.6",
+    "jquery": "^3.2.1",
+    "semantic-ui-css": "^2.2.12",
+    "toastr": "^2.1.4",
+    "yarn": "^1.3.2"
+  },
+  "scripts": {
+    "postinstall": "scripts/publish_assets_web.sh"
+  }
+}
