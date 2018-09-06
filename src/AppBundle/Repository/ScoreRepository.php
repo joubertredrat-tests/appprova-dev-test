@@ -5,6 +5,7 @@
 
 namespace AppBundle\Repository;
 
+use AppProva\Domain\Entity\Institution;
 use AppProva\Domain\Entity\Score;
 use AppProva\Domain\Repository\ScoreRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
@@ -16,6 +17,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ScoreRepository extends EntityRepository implements ScoreRepositoryInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getList(Institution $institution): array
+    {
+        return $this->findBy(['institution' => $institution]);
+    }
+
     /**
      * {@inheritdoc}
      */

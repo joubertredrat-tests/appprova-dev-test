@@ -34,6 +34,18 @@
                         <td>{{ institution.generalscore }}</td>
                         <td>{{ institution.score|length }}</td>
                         <td class="collapsing">
+                            <a href="{{ path('app_manager_score_list', {institutionId: institution.id}) }}">
+                                <div
+                                    class="ui vertical animated blue button"
+                                    tabindex="0"
+                                >
+                                    <div class="hidden content">Avaliações</div>
+                                    <div class="visible content">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<i class="star icon"></i>&nbsp;&nbsp;&nbsp
+                                    </div>
+                                </div>
+                            </a>
+
                             <div
                                 class="ui vertical animated red button app-institution-remove"
                                 tabindex="0"

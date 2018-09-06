@@ -10,3 +10,9 @@ services:
     arguments:
       - '@app.repository.course'
       - '@logger'
+
+  app.service.score:
+    class: AppProva\Domain\Service\ScoreService
+    arguments:
+      - '@app.repository.score'
+      - '@logger'

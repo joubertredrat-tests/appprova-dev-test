@@ -4,22 +4,22 @@ app_manager_index:
   methods: GET
 
 app_manager_institution_list:
-  path: /manager/insitutions
+  path: /manager/institutions
   controller: AppBundle:Manager\Institution:list
   methods: GET
 
 app_manager_institution_delete:
-  path: /manager/insitutions/{id}/delete
+  path: /manager/institutions/{id}/delete
   controller: AppBundle:Manager\Institution:delete
   methods: GET
 
 app_manager_institution_add_form:
-  path: /manager/insitutions/add
+  path: /manager/institutions/add
   controller: AppBundle:Manager\Institution:addForm
   methods: GET
 
 app_manager_institution_add_post:
-  path: /manager/insitutions/add
+  path: /manager/institutions/add
   controller: AppBundle:Manager\Institution:addPost
   methods: POST
 
@@ -41,4 +41,24 @@ app_manager_course_add_form:
 app_manager_course_add_post:
   path: /manager/courses/add
   controller: AppBundle:Manager\Course:addPost
+  methods: POST
+
+app_manager_score_list:
+  path: /manager/institutions/{institutionId}/scores
+  controller: AppBundle:Manager\Score:list
+  methods: GET
+
+app_manager_score_delete:
+  path: /manager/institutions/{institutionId}/scores/{scoreId}/delete
+  controller: AppBundle:Manager\Score:delete
+  methods: GET
+
+app_manager_score_add_form:
+  path: /manager/institutions/{institutionId}/scores/add
+  controller: AppBundle:Manager\Score:addForm
+  methods: GET
+
+app_manager_score_add_post:
+  path: /manager/institutions/{institutionId}/scores/add
+  controller: AppBundle:Manager\Score:addPost
   methods: POST

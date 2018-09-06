@@ -5,6 +5,7 @@
 
 namespace AppProva\Domain\Repository;
 
+use AppProva\Domain\Entity\Institution;
 use AppProva\Domain\Entity\Score;
 
 /**
@@ -14,6 +15,12 @@ use AppProva\Domain\Entity\Score;
  */
 interface ScoreRepositoryInterface
 {
+    /**
+     * @param Institution $institution
+     * @return array<Score>
+     */
+    public function getList(Institution $institution): array;
+
     /**
      * @param int $id
      * @return Score|null

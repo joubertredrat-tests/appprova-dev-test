@@ -1,0 +1,138 @@
+{% extends '@App/manager/app.html.twig' %}
+
+{% block content %}
+
+    <h4>Adicionar avaliação de curso da instituição {{ institution.name }}</h4>
+
+    <form id="form-data" class="ui large form" method="post" action="{{ path('app_manager_score_add_post', {institutionId: institution.id}) }}">
+        <div class="ui stacked field">
+            <div class="field">
+                <label>Curso: *</label>
+                <div class="ui left input">
+                    <select
+                        id="course"
+                        name="course"
+                        class="ui fluid dropdown"
+                    >
+                        <option value="">Selecione um curso</option>
+
+                        {% if courses|length > 0 %}
+
+                            {% for course in courses %}
+
+                                <option value="{{ course.id }}">{{ course.name }}</option>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Nota geral: *</label>
+                <div class="ui left input">
+                    <input
+                        type="tel"
+                        id="generalscore"
+                        name="generalscore"
+                        placeholder="Nota geral do curso na instituição"
+                        value=""
+                    />
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Média das notas dos alunos: *</label>
+                <div class="ui left input">
+                    <input
+                        type="tel"
+                        id="studentavgscore"
+                        name="studentavgscore"
+                        placeholder="Média das notas dos alunos do curso"
+                        value=""
+                    />
+                </div>
+            </div>
+
+            <div class="field">
+                <button
+                        id="form-button-send"
+                        name="button"
+                        class="ui button"
+                        type="submit"
+                >
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        /**
+         * Score validation
+         */
+        $.fn.form.settings.rules.score = function (inputValue) {
+            return inputValue >= 0 && inputValue <= 100;
+        };
+
+        /**
+         * ready
+         */
+        $(document).ready(function() {
+            $('#form-data').form({
+                inline: true,
+                on: 'blur',
+                fields: {
+                    course: {
+                        identifier: 'course',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor informe o curso'
+                            }
+                        ]
+                    },
+                    generalscore: {
+                        identifier: 'generalscore',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor informe a nota geral instituição'
+                            },
+                            {
+                                type   : 'score',
+                                prompt : 'A nota deve ser no mínimo 0 e máximo 100'
+                            }
+                        ]
+                    },
+                    studentavgscore: {
+                        identifier: 'studentavgscore',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor informe a nota geral instituição'
+                            },
+                            {
+                                type   : 'score',
+                                prompt : 'A nota deve ser no mínimo 0 e máximo 100'
+                            }
+                        ]
+                    }
+                },
+                onSuccess: function () {
+                    $("#form-button-send")
+                        .html("Enviando...")
+                        .addClass('disabled')
+                    ;
+                }
+            });//form
+        });
+    </script>
+
+{% endblock %}

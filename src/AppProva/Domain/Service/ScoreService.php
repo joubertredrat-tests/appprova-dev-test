@@ -46,6 +46,18 @@ class ScoreService
 
     /**
      * @param Institution $institution
+     * @return array<Score>
+     */
+    public function scoreGetList(Institution $institution): array
+    {
+        return $this
+            ->scoreRepository
+            ->getList($institution)
+        ;
+    }
+
+    /**
+     * @param Institution $institution
      * @param Course $course
      * @param int $courseGeneralScore
      * @param int $courseStudentAvgScore
