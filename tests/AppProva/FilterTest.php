@@ -46,16 +46,29 @@ class FilterTest extends AppBundleTestCase
      * test FilterByCourseName
      *
      * @return void
+     * @throws \Exception
      */
     public function testFilterByCourseName(): void
     {
         $filter = "Informação";
-        $results = 1;
+        $results = 3;
 
-        $data = [];
+        $service = $this->getService();
+        $data = $service->getListBy(null, $filter);
 
         self::assertEquals($results, count($data));
-        self::assertContains($filter, "");
+        self::assertContains(
+            $filter,
+            $data[0]->getScore()[0]->getCourse()->getName()
+        );
+        self::assertContains(
+            $filter,
+            $data[1]->getScore()[0]->getCourse()->getName()
+        );
+        self::assertContains(
+            $filter,
+            $data[2]->getScore()[0]->getCourse()->getName()
+        );
     }
 
     /**

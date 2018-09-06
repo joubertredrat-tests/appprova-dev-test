@@ -21,8 +21,10 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
     /**
      * {@inheritdoc}
      */
-    public function getListBy(?string $institutionName = null): array
-    {
+    public function getListBy(
+        ?string $institutionName = null,
+        ?string $courseName = null
+    ): array {
         $queryBuilder = $this->createQueryBuilder('i');
 
         $queryBuilder
@@ -38,6 +40,17 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
                         ->like('i.name', ':institutionName')
                 )
                 ->setParameter('institutionName', '%' . $institutionName . '%')
+            ;
+        }
+
+        if ($courseName) {
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder
+                        ->expr()
+                        ->like('c.name', ':courseName')
+                )
+                ->setParameter('courseName', '%' . $courseName . '%')
             ;
         }
 

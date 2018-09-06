@@ -46,13 +46,16 @@ class InstitutionService
 
     /**
      * @param string|null $institutionName
+     * @param string|null $courseName
      * @return array
      */
-    public function getListBy(?string $institutionName = null): array
-    {
+    public function getListBy(
+        ?string $institutionName = null,
+        ?string $courseName = null
+    ): array {
         return $this
             ->institutionRepository
-            ->getListBy($institutionName)
+            ->getListBy($institutionName, $courseName)
         ;
     }
 

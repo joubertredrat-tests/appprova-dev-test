@@ -90,7 +90,7 @@ class AppFixture extends Fixture
 
         $score21 = new Score();
         $score21->setInstitution($institution2);
-        $score21->setCourse($course3);
+        $score21->setCourse($course1);
         $score21->setCourseGeneralScore(47);
         $score21->setCourseStudentAvgScore(84);
 
