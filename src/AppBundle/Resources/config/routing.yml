@@ -1,0 +1,9 @@
+app_manager_institution_list:
+  path: /manager/insitutions
+  controller: AppBundle:Manager\Institution:list
+  methods: GET
+
+app_manager_institution_delete:
+  path: /manager/insitutions/{id}/delete
+  controller: AppBundle:Manager\Institution:delete
+  methods: GET

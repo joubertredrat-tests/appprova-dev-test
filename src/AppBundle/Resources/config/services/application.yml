@@ -1,0 +1,6 @@
+services:
+  app.service.institution:
+    class: AppProva\Domain\Service\InstitutionService
+    arguments:
+      - '@app.repository.institution'
+      - '@logger'

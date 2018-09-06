@@ -30,9 +30,11 @@ AppProva\Domain\Entity\Score:
       joinColumn:
         name: institution_id
         referencedColumnName: id
+        onDelete: CASCADE
     course:
       targetEntity: AppProva\Domain\Entity\Course
       inversedBy: score
       joinColumn:
         name: course_id
         referencedColumnName: id
+        onDelete: CASCADE

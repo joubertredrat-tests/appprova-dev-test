@@ -2,4 +2,104 @@
 
 {% block content %}
 
+    <a href="#">
+        <div
+            class="ui vertical animated blue button"
+            tabindex="0"
+        >
+            <div class="hidden content">Adicionar</div>
+            <div class="visible content">
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="plus icon"></i>&nbsp;&nbsp;&nbsp
+            </div>
+        </div>
+    </a>
+
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Instituição</th>
+                <th>Nota geral</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if institutions|length > 0 %}
+
+                {% for institution in institutions %}
+
+                    <tr>
+                        <td>{{ institution.name }}</td>
+                        <td>{{ institution.generalscore }}</td>
+                        <td>
+                            <div
+                                class="ui vertical animated red button app-institution-remove"
+                                tabindex="0"
+                                data-institution-id="{{ institution.id }}"
+                            >
+                                <div class="hidden content">Remover</div>
+                                <div class="visible content">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="trash icon"></i>&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="ui basic modal app-institution-remove-modal-{{ institution.id }}">
+                                <div class="ui icon header">
+                                    <i class="trash alternate icon"></i>
+                                    Tem certeza que deseja remover a Instituição {{ institution.name }}?
+                                </div>
+                                <div class="content">
+                                    <p>
+                                        Esta ação é irreversível, você poderá adicionar esta instituição novamente depois.
+                                    </p>
+                                </div>
+                                <div class="actions">
+                                    <div class="ui red cancel inverted button">
+                                        <i class="remove icon"></i>
+                                        Não
+                                    </div>
+                                    <div class="ui green ok inverted button">
+                                        <i class="checkmark icon"></i>
+                                        Sim
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+                    <td colspan="3">Nenhuma instituição adicionado ainda</td>
+                </tr>
+
+            {% endif %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        /**
+         * ready
+         */
+        $(document).ready(function() {
+            $('.app-institution-remove').on('click', function () {
+                var id = $(this).data('institution-id');
+                $('.app-institution-remove-modal-' + id).modal({
+                    allowMultiple: false,
+                    closable: false,
+                    onApprove: function() {
+                        window.location = '/manager/insitutions/' + id + '/delete';
+                    }
+                }).modal('show');
+            });
+        });
+    </script>
+
 {% endblock %}
