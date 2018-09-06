@@ -17,3 +17,23 @@ app_manager_institution_add_post:
   path: /manager/insitutions/add
   controller: AppBundle:Manager\Institution:addPost
   methods: POST
+
+app_manager_course_list:
+  path: /manager/courses
+  controller: AppBundle:Manager\Course:list
+  methods: GET
+
+app_manager_course_delete:
+  path: /manager/courses/{id}/delete
+  controller: AppBundle:Manager\Course:delete
+  methods: GET
+
+app_manager_course_add_form:
+  path: /manager/courses/add
+  controller: AppBundle:Manager\Course:addForm
+  methods: GET
+
+app_manager_course_add_post:
+  path: /manager/courses/add
+  controller: AppBundle:Manager\Course:addPost
+  methods: POST

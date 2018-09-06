@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <form id="form-data" class="ui large form" method="post" action="{{ path('app_manager_institution_add_post') }}">
+    <form id="form-data" class="ui large form" method="post" action="{{ path('app_manager_course_add_post') }}">
         <div class="ui stacked field">
             <div class="field">
                 <label>Instituição: *</label>
@@ -11,20 +11,7 @@
                         type="text"
                         id="name"
                         name="name"
-                        placeholder="Nome da instituição"
-                        value=""
-                    />
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Nota geral: *</label>
-                <div class="ui left input">
-                    <input
-                        type="tel"
-                        id="generalscore"
-                        name="generalscore"
-                        placeholder="Nota geral da instituição"
+                        placeholder="Nome do curso"
                         value=""
                     />
                 </div>
@@ -49,13 +36,6 @@
 
     <script>
         /**
-         * Score validation
-         */
-        $.fn.form.settings.rules.score = function (inputValue) {
-            return inputValue >= 0 && inputValue <= 100;
-        };
-
-        /**
          * ready
          */
         $(document).ready(function() {
@@ -68,20 +48,7 @@
                         rules: [
                             {
                                 type: 'empty',
-                                prompt: 'Por favor informe a instituição'
-                            }
-                        ]
-                    },
-                    generalscore: {
-                        identifier: 'generalscore',
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Por favor informe a nota geral instituição'
-                            },
-                            {
-                                type   : 'score',
-                                prompt : 'A nota deve ser no mínimo 0 e máximo 100'
+                                prompt: 'Por favor informe o curso'
                             }
                         ]
                     }

@@ -1,0 +1,105 @@
+{% extends '@App/manager/app.html.twig' %}
+
+{% block content %}
+
+    <a href="{{ path('app_manager_course_add_form') }}">
+        <div
+                class="ui vertical animated blue button"
+                tabindex="0"
+        >
+            <div class="hidden content">Adicionar</div>
+            <div class="visible content">
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="plus icon"></i>&nbsp;&nbsp;&nbsp
+            </div>
+        </div>
+    </a>
+
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Avaliações em instituições</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if courses|length > 0 %}
+
+            {% for course in courses %}
+
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.institutionScore|length }}</td>
+                    <td class="collapsing">
+                        <div
+                            class="ui vertical animated red button app-course-remove"
+                            tabindex="0"
+                            data-course-id="{{ course.id }}"
+                        >
+                            <div class="hidden content">Remover</div>
+                            <div class="visible content">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<i class="trash icon"></i>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="ui basic modal app-course-remove-modal-{{ course.id }}">
+                            <div class="ui icon header">
+                                <i class="trash alternate icon"></i>
+                                Tem certeza que deseja remover o Curso {{ course.name }}?
+                            </div>
+                            <div class="content">
+                                <p>
+                                    Esta ação é irreversível, você poderá adicionar este curso novamente depois.
+                                </p>
+                            </div>
+                            <div class="actions">
+                                <div class="ui red cancel inverted button">
+                                    <i class="remove icon"></i>
+                                    Não
+                                </div>
+                                <div class="ui green ok inverted button">
+                                    <i class="checkmark icon"></i>
+                                    Sim
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="3">Nenhum curso adicionado ainda</td>
+            </tr>
+
+        {% endif %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        /**
+         * ready
+         */
+        $(document).ready(function() {
+            $('.app-course-remove').on('click', function () {
+                var id = $(this).data('course-id');
+                $('.app-course-remove-modal-' + id).modal({
+                    allowMultiple: false,
+                    closable: false,
+                    onApprove: function() {
+                        window.location = '/manager/courses/' + id + '/delete';
+                    }
+                }).modal('show');
+            });
+        });
+    </script>
+
+{% endblock %}

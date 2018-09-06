@@ -4,3 +4,9 @@ services:
     arguments:
       - '@app.repository.institution'
       - '@logger'
+
+  app.service.course:
+    class: AppProva\Domain\Service\CourseService
+    arguments:
+      - '@app.repository.course'
+      - '@logger'
