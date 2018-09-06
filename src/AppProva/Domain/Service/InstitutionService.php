@@ -49,13 +49,15 @@ class InstitutionService
      * @param string|null $courseName
      * @param int|null $institutionGeneralScore
      * @param int|null $courseGeneralScore
+     * @param int|null $courseStudentAvgScore
      * @return array
      */
     public function getListBy(
         ?string $institutionName = null,
         ?string $courseName = null,
         ?int $institutionGeneralScore = null,
-        ?int $courseGeneralScore = null
+        ?int $courseGeneralScore = null,
+        ?int $courseStudentAvgScore = null
     ): array {
         return $this
             ->institutionRepository
@@ -63,7 +65,8 @@ class InstitutionService
                 $institutionName,
                 $courseName,
                 $institutionGeneralScore,
-                $courseGeneralScore
+                $courseGeneralScore,
+                $courseStudentAvgScore
             )
         ;
     }

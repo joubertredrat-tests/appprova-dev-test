@@ -25,7 +25,8 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
         ?string $institutionName = null,
         ?string $courseName = null,
         ?int $institutionGeneralScore = null,
-        ?int $courseGeneralScore = null
+        ?int $courseGeneralScore = null,
+        ?int $courseStudentAvgScore = null
     ): array {
         $queryBuilder = $this->createQueryBuilder('i');
 
@@ -75,6 +76,17 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
                         ->eq('s.courseGeneralScore', ':courseGeneralScore')
                 )
                 ->setParameter('courseGeneralScore', $courseGeneralScore)
+            ;
+        }
+
+        if ($courseStudentAvgScore) {
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder
+                        ->expr()
+                        ->eq('s.courseStudentAvgScore', ':courseStudentAvgScore')
+                )
+                ->setParameter('courseStudentAvgScore', $courseStudentAvgScore)
             ;
         }
 

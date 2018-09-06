@@ -111,16 +111,18 @@ class FilterTest extends AppBundleTestCase
      * test FilterByCourseStudentAvgScore
      *
      * @return void
+     * @throws \Exception
      */
     public function testFilterByCourseStudentAvgScore(): void
     {
         $filter = 70;
         $results = 1;
 
-        $data = [];
+        $service = $this->getService();
+        $data = $service->getListBy(null, null, null, null, $filter);
 
         self::assertEquals($results, count($data));
-        self::assertEquals($filter, 0);
+        self::assertEquals($filter, $data[0]->getScore()[0]->getCourseStudentAvgScore());
     }
 
     /**
