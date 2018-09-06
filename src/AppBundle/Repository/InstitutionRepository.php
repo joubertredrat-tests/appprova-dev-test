@@ -24,7 +24,8 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
     public function getListBy(
         ?string $institutionName = null,
         ?string $courseName = null,
-        ?int $institutionGeneralScore = null
+        ?int $institutionGeneralScore = null,
+        ?int $courseGeneralScore = null
     ): array {
         $queryBuilder = $this->createQueryBuilder('i');
 
@@ -63,6 +64,17 @@ class InstitutionRepository extends EntityRepository implements InstitutionRepos
                         ->eq('i.generalScore', ':institutionGeneralScore')
                 )
                 ->setParameter('institutionGeneralScore', $institutionGeneralScore)
+            ;
+        }
+
+        if ($courseGeneralScore) {
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder
+                        ->expr()
+                        ->eq('s.courseGeneralScore', ':courseGeneralScore')
+                )
+                ->setParameter('courseGeneralScore', $courseGeneralScore)
             ;
         }
 
