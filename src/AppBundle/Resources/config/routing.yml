@@ -7,3 +7,13 @@ app_manager_institution_delete:
   path: /manager/insitutions/{id}/delete
   controller: AppBundle:Manager\Institution:delete
   methods: GET
+
+app_manager_institution_add_form:
+  path: /manager/insitutions/add
+  controller: AppBundle:Manager\Institution:addForm
+  methods: GET
+
+app_manager_institution_add_post:
+  path: /manager/insitutions/add
+  controller: AppBundle:Manager\Institution:addPost
+  methods: POST

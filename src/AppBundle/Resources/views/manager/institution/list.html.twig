@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <a href="#">
+    <a href="{{ path('app_manager_institution_add_form') }}">
         <div
             class="ui vertical animated blue button"
             tabindex="0"
@@ -19,6 +19,7 @@
             <tr>
                 <th>Instituição</th>
                 <th>Nota geral</th>
+                <th>Cursos avaliados</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -31,7 +32,8 @@
                     <tr>
                         <td>{{ institution.name }}</td>
                         <td>{{ institution.generalscore }}</td>
-                        <td>
+                        <td>{{ institution.score|length }}</td>
+                        <td class="collapsing">
                             <div
                                 class="ui vertical animated red button app-institution-remove"
                                 tabindex="0"
@@ -79,6 +81,17 @@
 
         </tbody>
     </table>
+
+    <div class="ui info message">
+        <div class="header">
+            Informações sobre as instituições
+        </div>
+        <ul class="list">
+            <li>
+                Somente irá aparecer nas pesquisas as instituições que tiverem ao menos um curso avaliado.
+            </li>
+        </ul>
+    </div>
 
 {% endblock %}
 

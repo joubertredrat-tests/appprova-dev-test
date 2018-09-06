@@ -9,6 +9,7 @@ use AppBundle\Controller\NotifyControllerTrait;
 use AppProva\Domain\Exception\Institution\NotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -51,6 +52,37 @@ class InstitutionController extends Controller
             return $this->redirectToRoute('app_manager_institution_list');
         } catch (NotFoundException $e) {
             $this->notifyViewErrorOnTop("Instituição informada não existe");
+
+            return $this->redirectToRoute('app_manager_institution_list');
+        } catch (\Throwable $e) {
+            $this->notifyViewErrorOnTop("Algo de errado não está certo");
+
+            return $this->redirectToRoute('app_manager_institution_list');
+        }
+    }
+
+    /**
+     * @return Response
+     */
+    public function addFormAction(): Response
+    {
+        return $this->render('@App/manager/institution/form.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function addPostAction(Request $request): RedirectResponse
+    {
+        try {
+            $name = $request->get('name');
+            $generalScore = $request->get('generalscore');
+
+            $service = $this->get('app.service.institution');
+            $service->institutionAdd($name, $generalScore);
+
+            $this->notifyViewSuccessOnTop("Instituição adicionada com sucesso");
 
             return $this->redirectToRoute('app_manager_institution_list');
         } catch (\Throwable $e) {
