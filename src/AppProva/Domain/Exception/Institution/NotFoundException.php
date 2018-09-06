@@ -23,4 +23,3 @@ class NotFoundException extends \Exception
         );
     }
 }
-
