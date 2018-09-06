@@ -40,7 +40,6 @@ class ScoreTest extends AppBundleTestCase
     {
         $institution = $this->getInstitution();
         $course = $this->getCourse();
-        $institutionScore = 100;
         $courseGeneralScore = 100;
         $courseStudentAvgScore = 100;
 
@@ -48,12 +47,10 @@ class ScoreTest extends AppBundleTestCase
         $score = $service->scoreAdd(
             $institution,
             $course,
-            $institutionScore,
             $courseGeneralScore,
             $courseStudentAvgScore
         );
 
-        self::assertSame($institutionScore, $score->getInstitutionScore());
         self::assertSame($courseGeneralScore, $score->getCourseGeneralScore());
         self::assertSame($courseStudentAvgScore, $score->getCourseStudentAvgScore());
     }
@@ -68,7 +65,6 @@ class ScoreTest extends AppBundleTestCase
     {
         $institution = $this->getInstitution();
         $course = $this->getCourse();
-        $institutionScore = 100;
         $courseGeneralScore = 100;
         $courseStudentAvgScore = 100;
 
@@ -76,7 +72,6 @@ class ScoreTest extends AppBundleTestCase
         $score = $service->scoreAdd(
             $institution,
             $course,
-            $institutionScore,
             $courseGeneralScore,
             $courseStudentAvgScore
         );

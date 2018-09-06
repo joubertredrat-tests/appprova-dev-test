@@ -58,21 +58,6 @@ class ScoreBuilder
     }
 
     /**
-     * @param int $institutionScore
-     * @return ScoreBuilder
-     * @throws \AppProva\Domain\Exception\Score\InvalidScoreException
-     */
-    public function addInstitutionScore(int $institutionScore): self
-    {
-        $this
-            ->score
-            ->setInstitutionScore($institutionScore)
-        ;
-
-        return $this;
-    }
-
-    /**
      * @param int $courseGeneralScore
      * @return ScoreBuilder
      * @throws \AppProva\Domain\Exception\Score\InvalidScoreException

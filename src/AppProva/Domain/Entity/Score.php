@@ -25,11 +25,6 @@ class Score
     /**
      * @var int
      */
-    private $institutionScore;
-
-    /**
-     * @var int
-     */
     private $courseGeneralScore;
 
     /**
@@ -53,32 +48,6 @@ class Score
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getInstitutionScore(): int
-    {
-        return $this->institutionScore;
-    }
-
-    /**
-     * @param int $institutionScore
-     * @return void
-     * @throws InvalidScoreException
-     */
-    public function setInstitutionScore(int $institutionScore): void
-    {
-        if ($institutionScore < 0) {
-            throw InvalidScoreException::lessThanZero($institutionScore);
-        }
-
-        if ($institutionScore > 100) {
-            throw InvalidScoreException::moreThanOneHundred($institutionScore);
-        }
-
-        $this->institutionScore = $institutionScore;
     }
 
     /**

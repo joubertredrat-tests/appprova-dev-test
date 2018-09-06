@@ -47,7 +47,6 @@ class ScoreService
     /**
      * @param Institution $institution
      * @param Course $course
-     * @param int $institutionScore
      * @param int $courseGeneralScore
      * @param int $courseStudentAvgScore
      * @return Score
@@ -56,7 +55,6 @@ class ScoreService
     public function scoreAdd(
         Institution $institution,
         Course $course,
-        int $institutionScore,
         int $courseGeneralScore,
         int $courseStudentAvgScore
     ): Score {
@@ -65,7 +63,6 @@ class ScoreService
             $score = $scoreBuilder
                 ->addInstitution($institution)
                 ->addCourse($course)
-                ->addInstitutionScore($institutionScore)
                 ->addCourseGeneralScore($courseGeneralScore)
                 ->addCourseStudentAvgScore($courseStudentAvgScore)
                 ->get()
@@ -79,7 +76,7 @@ class ScoreService
             return $score;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on add score, unknown error: %s",
+                "Fail on add score: %s",
                 $e->getMessage()
             );
 
@@ -110,7 +107,7 @@ class ScoreService
             return true;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on delete course score for institution, unknown error: %s",
+                "Fail on delete course score for institution: %s",
                 $e->getMessage()
             );
 
@@ -126,7 +123,6 @@ class ScoreService
     /**
      * @param int $id
      * @return Score
-     * @throws NotFoundException
      * @throws \Throwable
      */
     public function scoreGet(int $id): Score
@@ -142,21 +138,9 @@ class ScoreService
             }
 
             return $score;
-        } catch (NotFoundException $e) {
-            $message = sprintf(
-                "Fail on get course score for institution: %s",
-                $e->getMessage()
-            );
-
-            $this
-                ->logger
-                ->error($message)
-            ;
-
-            throw $e;
         } catch (\Throwable $e) {
             $message = sprintf(
-                "Fail on get course score for institution, unknown error: %s",
+                "Fail on get course score for institution: %s",
                 $e->getMessage()
             );
 

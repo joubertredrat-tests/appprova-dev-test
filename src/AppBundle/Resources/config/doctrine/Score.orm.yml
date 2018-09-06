@@ -9,9 +9,6 @@ AppProva\Domain\Entity\Score:
       generator:
         strategy: AUTO
   fields:
-    institutionScore:
-      type: integer
-      length: 3
     courseGeneralScore:
       type: integer
       length: 3
