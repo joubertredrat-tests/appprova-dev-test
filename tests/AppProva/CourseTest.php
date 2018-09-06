@@ -42,7 +42,7 @@ class CourseTest extends AppBundleTestCase
     public function testCourseUpdate(): void
     {
         $nameOld = "Sistemas de Informação";
-        $nameNew = "Ciência da Computação";
+        $nameNew = "Ciências Contábeis";
 
         $service = $this->getService();
         $courseCreated = $service->courseAdd($nameOld);
@@ -68,7 +68,7 @@ class CourseTest extends AppBundleTestCase
         $service
             ->courseUpdate(
                 99999999999,
-                "Ciência da Computação"
+                "Ciências Contábeis"
             )
         ;
     }
